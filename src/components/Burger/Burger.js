@@ -4,13 +4,14 @@ import classes from './Burger.module.css';
 import BurgerIngredient from './BurgerIngredient/BurgerIngredient';
 
 const burger = (props) => {
+    //Logic to change ingredients object coming from burger container into an array with other including jsx arrays.
     let transformedIngredients = Object.keys(props.ingredients)
         .map(igKey => {
             return [...Array(props.ingredients[igKey])].map((_, i) => {
-                return <BurgerIngredient key={igKey + i} type={igKey}/>
+                return <BurgerIngredient key={igKey + i} type={igKey}/>// printing the individual BurgerIngredient here.
             });
         })
-        .reduce((arr, el) => {
+        .reduce((arr, el) => {// for returning the inner values of array onto the outer array.
             return arr.concat(el);
         }, []);
         

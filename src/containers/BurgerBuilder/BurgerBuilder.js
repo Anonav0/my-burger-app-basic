@@ -97,11 +97,12 @@ class BurgerBuilder extends Component {
     }
 
     render() {
+        //logic to turn the ingredients from number based to boolean based object.
         const disabledInfo = {
             ...this.state.ingredients
         };
         for (let key in disabledInfo) {
-            disabledInfo[key] = disabledInfo[key] <= 0 ;
+            disabledInfo[key] = disabledInfo[key] <= 0 ; // {salad: true, bacon : false ....}
         };
 
         return(
