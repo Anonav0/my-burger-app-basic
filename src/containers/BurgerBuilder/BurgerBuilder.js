@@ -141,8 +141,8 @@ class BurgerBuilder extends Component {
             disabledInfo[key] = disabledInfo[key] <= 0 ; // {salad: true, bacon : false ....}
         };
 
+        //THIS WILL LOAD THE SPINNER BEFORE LOADING THE INGREDIENTS FROM FIREBASE
         let orderSummary = null;
-
         let burger = this.state.error ? <p> Ingredients can't be loaded!</p>:<Spinner/>;
 
         if(this.state.ingredients) {
