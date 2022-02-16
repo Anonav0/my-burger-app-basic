@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux'
+import { connect } from 'react-redux';
 
 import Aux from '../../hoc/Aux/Aux';
 import Burger from '../../components/Burger/Burger';
@@ -31,7 +31,7 @@ class BurgerBuilder extends Component {
     // }
     state = {
 
-        ingredients: null,
+        
         totalPrice : 4,
         purchaseable: false,
         purchasing: false,
@@ -40,13 +40,13 @@ class BurgerBuilder extends Component {
     }
 
     componentDidMount () {
-        axios.get('https://react-my-burger-8d2e4-default-rtdb.firebaseio.com/ingredients.json')
-            .then(response => {
-                this.setState({ingredients : response.data});
-            })
-            .catch(error => {
-                this.setState({error: true})
-            });
+        // axios.get('https://react-my-burger-8d2e4-default-rtdb.firebaseio.com/ingredients.json')
+        //     .then(response => {
+        //         this.setState({ingredients : response.data});
+        //     })
+        //     .catch(error => {
+        //         this.setState({error: true})
+        //     });
     };
 
     updatePurchaseState (ingredients) {
@@ -132,7 +132,7 @@ class BurgerBuilder extends Component {
     render() {
         //logic to turn the ingredients from number based to boolean based object.
         const disabledInfo = {
-            ...this.state.ingredients
+            ...this.props.ings
         };
         for (let key in disabledInfo) {
             disabledInfo[key] = disabledInfo[key] <= 0 ; // {salad: true, bacon : false ....}
@@ -142,13 +142,13 @@ class BurgerBuilder extends Component {
         let orderSummary = null;
         let burger = this.state.error ? <p> Ingredients can't be loaded!</p>:<Spinner/>;
 
-        if(this.state.ingredients) {
+        if(this.props.ings) {
             burger = (
                 <Aux>
-                    <Burger ingredients = {this.state.ingredients} />
+                    <Burger ingredients = {this.props.ings} />
                     <BuildControls
-                        ingredientAdded= {this.addIngredientHandler}
-                        ingredientRemoved = {this.removeIngredientHandler}
+                        ingredientAdded= {this.props.onIngredientAdded}
+                        ingredientRemoved = {this.props.onIngredientRemoved}
                         disabled = {disabledInfo}
                         purchaseable = {this.state.purchaseable}
                         price = {this.state.totalPrice}
@@ -157,7 +157,7 @@ class BurgerBuilder extends Component {
                 </Aux>
             );
             orderSummary = <OrderSummary 
-                ingredients= {this.state.ingredients}
+                ingredients= {this.props.ings}
                 totalPrice = {this.state.totalPrice}
                 purchaseCancelled = {this.purchasingCancelHandler}
                 purchaseContinued = {this.purchaseContinueHandler}/>;
