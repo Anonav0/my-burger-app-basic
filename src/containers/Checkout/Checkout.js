@@ -15,7 +15,7 @@ const Checkout = props => {
         props.history.goBack(); 
     }
 
-    const checkoutContinued =() => {
+    const checkoutContinued = () => {
        props.history.replace('/checkout/contact-data');
     }
 
